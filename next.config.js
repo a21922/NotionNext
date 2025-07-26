@@ -9,7 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: BLOG.BUNDLE_ANALYZER
 });
 
-// 扫描项目 /themes下的目录名
+// 扫描项目 /themes 下的目录名
 const themes = scanSubdirectories(path.resolve(__dirname, 'themes'));
 
 // 检测用户开启的多语言
@@ -78,8 +78,9 @@ const nextConfig = {
   },
   // 设置输出目录为 dist
   output: process.env.EXPORT ? 'export' : undefined,
+  distDir: 'dist',  // 确保输出目录为 dist
   staticPageGenerationTimeout: 120,
-  // 多语言， 在export时禁用
+  // 多语言，在 export 时禁用
   i18n: process.env.EXPORT
     ? undefined
     : {
@@ -89,7 +90,7 @@ const nextConfig = {
   images: {
     // 图片压缩
     formats: ['image/avif', 'image/webp'],
-    // 允许next/image加载的图片 域名
+    // 允许 next/image 加载的图片域名
     domains: [
       'gravatar.com',
       'www.notion.so',
@@ -102,7 +103,7 @@ const nextConfig = {
     ]
   },
 
-  // 默认将feed重定向至 /public/rss/feed.xml
+  // 默认将 feed 重定向至 /public/rss/feed.xml
   redirects: process.env.EXPORT
     ? undefined
     : () => [
@@ -113,7 +114,7 @@ const nextConfig = {
         }
       ],
   
-  // 重写url
+  // 重写 URL
   rewrites: process.env.EXPORT
     ? undefined
     : () => {
@@ -194,7 +195,7 @@ const nextConfig = {
     scrollRestoration: true
   },
 
-  // export 静态导出时 忽略/pages/sitemap.xml.js ， 否则和getServerSideProps这个动态文件冲突
+  // export 静态导出时忽略 /pages/sitemap.xml.js ，避免和 getServerSideProps 冲突
   exportPathMap: function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     const pages = { ...defaultPathMap };
     delete pages['/sitemap.xml'];
